@@ -49,18 +49,21 @@ public class BookController {
     @GetMapping("/all")
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = bookService.getAllBooks();
+        logger.info("** All Books Successfully **");
         return ResponseEntity.ok(books);
     }
 
-    @GetMapping("/author/{author}")
-    public ResponseEntity<List<Book>> getAllBooksByAuthor(@PathVariable("author") String author) {
+    @GetMapping("/author")
+    public ResponseEntity<List<Book>> getAllBooksByAuthor(@RequestParam("author") String author) {
         List<Book> books = bookService.getBooksByAuthor(author);
+        logger.info("** All Books By Author Successfully **");
         return ResponseEntity.ok(books);
     }
 
-    @GetMapping("/title/{title}")
-    public ResponseEntity<List<Book>> getAllBooksByTitle(@PathVariable("title") String title) {
+    @GetMapping("/title")
+    public ResponseEntity<List<Book>> getAllBooksByTitle(@RequestParam("title") String title) {
         List<Book> books = bookService.getBooksByTitle(title);
+        logger.info("** All Books By Title Successfully **");
         return ResponseEntity.ok(books);
     }
 }

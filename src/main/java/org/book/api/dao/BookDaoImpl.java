@@ -69,14 +69,24 @@ public class BookDaoImpl implements BookDao{
     @Override
     public List<Book> getBooksByAuthor(String author) {
         String sql = "select * from books where author = ?";
-        List<Book> bookList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Book>(Book.class));
+        String checkSql = "select count(*) from books where author = ?";
+        int count = jdbcTemplate.queryForObject(checkSql, new Object[]{author}, Integer.class);
+        if(count == 0) {
+            throw new BookNotFoundException();
+        }
+        List<Book> bookList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Book>(Book.class), author);
         return bookList;
     }
 
     @Override
     public List<Book> getBooksByTitle(String title) {
         String sql = "select * from books where title = ?";
-        List<Book> bookList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Book>(Book.class));
+        String checkSql = "select count(*) from books where title = ?";
+        int count = jdbcTemplate.queryForObject(checkSql, new Object[]{title}, Integer.class);
+        if(count == 0) {
+            throw new BookNotFoundException();
+        }
+        List<Book> bookList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Book>(Book.class), title);
         return bookList;
     }
 }
