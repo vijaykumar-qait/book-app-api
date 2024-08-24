@@ -8,6 +8,15 @@ public class Book {
     private double price;
     private String subject;
 
+    public Book(int bookId, String title, String author, double v, String publisher, String subject) {
+        this.bookId = bookId;
+        this.title = title;
+        this.author = author;
+        this.publications = publisher;
+        this.price = v;
+        this.subject = subject;
+    }
+
     public int getBookId() {
         return bookId;
     }
