@@ -16,6 +16,8 @@ public class Book {
         this.price = v;
         this.subject = subject;
     }
+    //TODO: Remove default constructor using custom row mapper
+    public Book() {}
 
     public int getBookId() {
         return bookId;

@@ -10,6 +10,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -53,4 +56,24 @@ class BookServiceImplTest {
         verify(bookDao, times(1)).deleteBook(anyInt());
     }
 
+    @Test
+    void testGetAllBooks() {
+        List<Book> bookList = Arrays.asList(
+                new Book(1, "Title1", "Author1", 10.0, "Publisher1", "Subject1"),
+                new Book(2, "Title2", "Author2", 20.0, "Publisher2", "Subject2")
+        );
+        when(bookDao.getAllBooks()).thenReturn(bookList);
+        List<Book> allBooks = bookService.getAllBooks();
+        assertEquals(bookList, allBooks);
+        verify(bookDao, times(1)).getAllBooks();
+    }
+
+    @Test
+    void testGetBookById() {
+        Book book = new Book(1, "Title1", "Author1", 10.0, "Publisher1", "Subject1");
+        when(bookDao.getBook(anyInt())).thenReturn(book);
+        Book getBookById = bookService.getBook(1);
+        assertEquals(book, getBookById);
+        verify(bookDao, times(1)).getBook(anyInt());
+    }
 }
